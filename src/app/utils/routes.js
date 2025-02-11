@@ -4,5 +4,6 @@ export const routes = {
     UPDATEPROFILE:'/updateProfile',
     PROFILE: '/profile',
     HOME: '/',
-    PRODUCT: '/product'
+    PRODUCT: '/product',
+    CART: '/cart',
 }

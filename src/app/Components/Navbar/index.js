@@ -104,6 +104,14 @@ export default function Navbar() {
                       Your Profile
                     </Link>
                   </MenuItem>
+                  <MenuItem>
+                    <Link
+                      href='#'
+                      className="block px-4 py-2 text-sm text-white data-focus:bg-gray-100 data-focus:outline-hidden"
+                    >
+                      My Orders
+                    </Link>
+                  </MenuItem>
                   <div
                     onClick={handleSignOut}
                     className="block px-4 py-2 text-sm cursor-pointer text-white data-focus:bg-gray-100 data-focus:outline-hidden"
@@ -122,23 +130,27 @@ export default function Navbar() {
                 </>)}
               </MenuItems>
             </Menu>
-            <button
-              type="button"
-              className="relative rounded-full p-1 px-3 text-white"
-            >
-              <span className="absolute -inset-1.5" />
-              <span className="sr-only">View notifications</span>
-              <IoIosHeartEmpty aria-hidden="true" className="size-6" />
-            </button>
+            <Link href='#'>
+              <button
+                type="button"
+                className="relative rounded-full p-1 px-3 text-white"
+              >
+                <span className="absolute -inset-1.5" />
+                <span className="sr-only">Wishlist</span>
+                <IoIosHeartEmpty aria-hidden="true" className="size-6" />
+              </button>
+            </Link>
 
-            <button
-              type="button"
-              className="relative rounded-full p-1 px-3 text-white"
-            >
-              <span className="absolute -inset-1.5" />
-              <span className="sr-only">View notifications</span>
-              <HiOutlineShoppingBag aria-hidden="true" className="size-6" />
-            </button>
+            <Link href={routes.CART}>
+              <button
+                type="button"
+                className="relative rounded-full p-1 px-3 text-white"
+              >
+                <span className="absolute -inset-1.5" />
+                <span className="sr-only">Cart Items</span>
+                <HiOutlineShoppingBag aria-hidden="true" className="size-6" />
+              </button>
+            </Link>
           </div>
         </div>
       </div>

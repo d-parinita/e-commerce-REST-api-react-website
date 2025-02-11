@@ -1,22 +1,44 @@
 'use client'
 import React, { Fragment, use, useEffect, useState } from 'react'
 import { IoIosHeartEmpty } from "react-icons/io";
-import { HiOutlineShoppingBag } from "react-icons/hi2";
-import { getProductById } from '@/app/apiService';
+import { HiOutlineShoppingBag, HiMinus } from "react-icons/hi2";
+import { addToCart, getProductById } from '@/app/apiService';
 import { toast } from 'react-toastify';
+import { AiOutlinePlus } from "react-icons/ai";
 
 export default function Page({ params }) {
 
   const { id } = use(params);
 
-  const [selectedSize, setSelectedSize] = useState(null);
-  const [product, setProduct] = useState()
+  const [product, setProduct] = useState(null)
+  const [selectedSize, setSelectedSize] = useState('M');
+  const [selectedQty, setSelectedQty] = useState(1)
+
+  const increase = () => setSelectedQty((prev) => Math.min(prev + 1, product?.quantity));
+  const decrease = () => setSelectedQty((prev) => Math.max(prev - 1, 1));
 
   const getProduct = async() => {
     try {
         const response = await getProductById(id)
         console.log(response);
         setProduct(response?.data?.data)
+        console.log(response?.data?.data);
+
+    } catch (error) {
+        toast.error('Product not available')
+    }
+  }
+
+  const addToMyCart = async() => {
+    const payload = {
+      productId: product?._id,
+      quantity: selectedQty,
+      size: selectedSize
+    }
+    try {
+        const response = await addToCart(payload)
+        toast.success('Product added successfully')
+        console.log(response);
     } catch (error) {
         toast.error('Product not available')
     }
@@ -26,10 +48,16 @@ export default function Page({ params }) {
     getProduct()
   }, [])
 
+  useEffect(() => {
+    console.log(product);
+    
+  }, [product])
+
   return (
     <>
     <div className=" min-h-screen text-white px-8 py-10">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mx-12">
+
         <div className="space-y-4">
           <div className="rounded-lg grid grid-cols-2 overflow-hidden gap-4">
             <img
@@ -57,12 +85,41 @@ export default function Page({ params }) {
             ))}
           </div>
         </div>
+
         <div className="space-y-6">
           <h1 className="text-3xl font-bold">{product?.title}</h1>
           <p className="text-gray-400">
             {product?.summary}
           </p>
           <p className="text-2xl font-semibold text-lime-400">Rs. {product?.sizes[0]?.price}</p>
+
+          <div className="flex items-center space-x-4">
+            <label className="text-gray-300 text-lg">Quantity:</label>
+            <div className="flex items-center border border-gray-600 rounded-lg bg-gray-800">
+              <button
+                onClick={decrease}
+                className="px-3 py-2 hover:bg-gray-700 rounded-l-lg"
+              >
+                <HiMinus className="w-5 h-5 text-white" />
+              </button>
+              <input
+                type="number"
+                className="w-12 text-center bg-gray-800 text-white outline-none"
+                value={selectedQty}
+                onChange={(e) => {
+                  const value = Math.max(1, Math.min(product?.quantity, e.target.value));
+                  setSelectedQty(value || 1);
+                }}
+              />
+              <button
+                onClick={increase}
+                className="px-3 py-2 hover:bg-gray-700 rounded-r-lg"
+              >
+                <AiOutlinePlus className="w-5 h-5 text-white" />
+              </button>
+            </div>
+          </div>
+
           <div>
             <label className="block mb-4 text-gray-300 text-lg">Select Size</label>
             <div className="flex space-x-4">
@@ -81,7 +138,7 @@ export default function Page({ params }) {
             </div>
           </div>
           <div className="flex space-x-4 mt-4">
-            <button className="flex items-center space-x-2 bg-lime-500 text-white px-6 py-3 rounded-lg hover:bg-lime-600 transition">
+            <button onClick={addToMyCart} className="flex items-center space-x-2 bg-lime-500 text-white px-6 py-3 rounded-lg hover:bg-lime-600 transition">
               <HiOutlineShoppingBag className="w-5 h-5" />
               <span>Add to Cart</span>
             </button>

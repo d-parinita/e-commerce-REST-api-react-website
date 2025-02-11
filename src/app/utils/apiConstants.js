@@ -6,5 +6,6 @@ export const apiConstants = {
     USERPROFILE: 'auth/user',
     GETCATEGORY: 'categories/',
     GETPRODUCT: 'products/get-products',
-    GETPRODUCTBYID: 'products/get-product'
+    GETPRODUCTBYID: 'products/get-product',
+    ADDTOCART: 'orders/add-to-cart'
 }

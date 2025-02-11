@@ -107,3 +107,12 @@ export const getProductById = async(id) => {
         throw error
     }
 }
+
+export const addToCart = async(payload) => {
+    try {
+        const data = await ecommerceApi.post(apiConstants.ADDTOCART, payload)
+        return data
+    } catch (error) {
+        throw error
+    }
+} 
