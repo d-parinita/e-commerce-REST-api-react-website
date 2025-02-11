@@ -116,3 +116,21 @@ export const addToCart = async(payload) => {
         throw error
     }
 } 
+
+export const getCart = async() => {
+    try {
+        const data = await ecommerceApi.get(apiConstants.GETCART)
+        return data
+    } catch (error) {
+        throw error
+    }
+}
+
+export const removeProduct = async(id) => {
+    try {
+        const data = await ecommerceApi.delete(apiConstants.REMOVEPRODUCT + id)
+        return data
+    } catch (error) {
+        throw error
+    }
+}

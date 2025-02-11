@@ -1,62 +1,107 @@
-import React from "react";
+'use client'
+import React, { useEffect, useState } from "react";
 import { RxCross2 } from "react-icons/rx";
+import { getCart, removeProduct, userProfile } from "../apiService";
+import { toast } from "react-toastify";
+import { routes } from "../utils/routes";
+import { useRouter } from "next/navigation";
 
-export default function MyCartPage() {
-  const cartItems = [
-    {
-      id: 1,
-      imgSrc: "https://images.pexels.com/photos/30658047/pexels-photo-30658047/free-photo-of-stylish-woman-posing-in-modern-fashion-studio.jpeg?auto=compress&cs=tinysrgb&w=600",
-      title: "Stylish T-Shirt",
-      summary: "Trendy and comfortable everyday wear.",
-      size: "M",
-      quantity: 1,
-      price: 49.99,
-    },
-    {
-      id: 2,
-      imgSrc: "https://images.pexels.com/photos/18182064/pexels-photo-18182064/free-photo-of-young-woman-posing-in-black-see-through-top-and-white-jeans.jpeg?auto=compress&cs=tinysrgb&w=600",
-      title: "Casual Hoodie",
-      summary: "Perfect for chilly evenings.",
-      size: "L",
-      quantity: 2,
-      price: 79.99,
-    },
-  ];
+export default function Page() {
+
+  const router = useRouter()
+
+  const [cartItems, setCartItems] = useState([])
+  const [profileData, setProfileData] = useState(null) 
+  const [selectedPayment, setSelectedPayment] = useState("cod");
+
+  const getCartData = async () => {
+    try {
+      const response = await getCart()
+      console.log(response.data)
+      setCartItems(response?.data)
+    } catch (error) {
+      toast.error('User not available')
+    }
+  }
+
+  const getProfileData = async () => {
+    try {
+      const response = await userProfile()
+      console.log(response.data.data.address.address)
+      setProfileData(response.data.data.address.address)
+    } catch (error) {
+      toast.error('User not available')
+    }
+  }
+
+  const changeAddress = () => {
+    router.push(routes.UPDATEPROFILE)
+  }
+
+  const totalPrice = () => {
+    let sum = 0
+    for (let i = 0; i < cartItems.length; i++) {
+      sum += cartItems[i].amount
+    }
+    return sum
+  }
+
+  const allTotal = () => {
+    let discount = 0
+    let shipping = 0
+    let total = totalPrice() - discount + shipping
+    return total
+  }
 
   const priceDetails = {
-    totalMRP: 179.97,
-    discount: 20.0,
-    shippingFee: 10.0,
-    totalPrice: 159.97,
-  };
+    totalMRP: totalPrice(),
+    totalPrice: allTotal()
+  }
+
+  const removeCartProduct = async(id, i) => {
+    const item = [...cartItems]
+    try {
+      const response = await removeProduct(id)
+      console.log(response)
+      item.splice(i, 1)
+      setCartItems(item)
+    } catch (error) {
+      toast.error('User not available')
+    }
+  }
+
+  useEffect(() => {
+    getCartData()
+    getProfileData()
+  }, [])
 
   return (
     <div className="min-h-screen text-white mx-12 px-8 py-10">
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2 space-y-8">
-          {cartItems.map((item) => (
+          {cartItems.map((item, i) => (
             <div
-              key={item.id}
+              key={item._id}
               className="bg-gray-900 p-4 flex items-center justify-between relative"
             >
-              <RxCross2 className="w-6 h-6 text-gray-400 absolute top-3 right-3 cursor-pointer hover:text-red-500" />
+              <RxCross2 onClick={() => removeCartProduct(item._id, i)} className="w-6 h-6 text-gray-400 absolute top-3 right-3 cursor-pointer hover:text-red-500" />
               <img
-                src={item.imgSrc}
-                alt={item.title}
+                src="https://images.pexels.com/photos/18182064/pexels-photo-18182064/free-photo-of-young-woman-posing-in-black-see-through-top-and-white-jeans.jpeg?auto=compress&cs=tinysrgb&w=600"
+                alt="Casual Hoodie"
                 className="w-32 h-41 object-cover"
               />
               <div className="ml-4 flex-grow space-y-2">
-                <h3 className="text-xl font-semibold">{item.title}</h3>
-                <p className="text-sm text-gray-400">{item.summary}</p>
+                <h3 className="text-xl font-semibold">Casual Hoodie</h3>
+                <p className="text-sm text-gray-400">Perfect for chilly evenings.</p>
                 <p className="text-sm text-gray-400">
-                  Size: <span className="font-medium">{item.size}</span>
+                  Size: <span className="font-medium">M</span>
                 </p>
                 <p className="text-sm text-gray-400">
                   Quantity: <span className="font-medium">{item.quantity}</span>
                 </p>
                 <p className="text-lg font-bold text-lime-400">
-                  ${item.price.toFixed(2)}
+                  Rs. {item.amount.toFixed(2)}
                 </p>
                 <p className="text-sm text-gray-400">✔ 7 Days Easy Return</p>
               </div>
@@ -68,11 +113,52 @@ export default function MyCartPage() {
           <div className="space-y-4">
             <h2 className="text-lg font-semibold">Delivery Address</h2>
             <p className="text-sm text-gray-300">
-              John Doe, 123 Broadway Lane, Downtown, New York, NY - 10001
+              {profileData}
             </p>
-            <button className="bg-lime-500 py-2 px-6 hover:bg-lime-600 font-semibold">
+            <button onClick={changeAddress} className="bg-lime-500 py-2 px-6 hover:bg-lime-600 font-semibold">
               Change Address
             </button>
+          </div>
+
+          <div className="space-y-4 mt-6">
+            <h2 className="text-lg font-semibold">Payment Methods</h2>
+            <div className="space-y-2">
+              <label className="flex items-center space-x-2 cursor-pointer">
+                <input
+                  type="radio"
+                  name="payment"
+                  value="cod"
+                  checked={selectedPayment === "cod"}
+                  onChange={() => setSelectedPayment("cod")}
+                  className="w-5 h-5 text-lime-500 accent-lime-500"
+                />
+                <span>Cash on Delivery</span>
+              </label>
+
+              <label className="flex items-center space-x-2 cursor-pointer">
+                <input
+                  type="radio"
+                  name="payment"
+                  value="credit"
+                  checked={selectedPayment === "credit"}
+                  onChange={() => setSelectedPayment("credit")}
+                  className="w-5 h-5 text-lime-500 accent-lime-500"
+                />
+                <span>Credit/Debit Card</span>
+              </label>
+
+              <label className="flex items-center space-x-2 cursor-pointer">
+                <input
+                  type="radio"
+                  name="payment"
+                  value="upi"
+                  checked={selectedPayment === "upi"}
+                  onChange={() => setSelectedPayment("upi")}
+                  className="w-5 h-5 text-lime-500 accent-lime-500"
+                />
+                <span>UPI / Net Banking</span>
+              </label>
+            </div>
           </div>
 
           <div className="space-y-6 mt-6">
@@ -80,25 +166,25 @@ export default function MyCartPage() {
             <div className="space-y-4">
               <div className="flex justify-between">
                 <p>Total MRP</p>
-                <p>${priceDetails.totalMRP.toFixed(2)}</p>
+                <p>Rs. {priceDetails.totalMRP.toFixed(2)}</p>
               </div>
               <div className="flex justify-between">
                 <p>Discount</p>
-                <p className="text-lime-500">- ${priceDetails.discount.toFixed(2)}</p>
+                <p className="text-lime-500">- Rs. 0.00</p>
               </div>
               <div className="flex justify-between">
                 <p>Shipping Fee</p>
-                <p>${priceDetails.shippingFee.toFixed(2)}</p>
+                <p>Rs. 0.00</p>
               </div>
               <hr className="border-gray-600" />
               <div className="flex justify-between text-lg font-bold">
                 <p>Total Price</p>
-                <p>${priceDetails.totalPrice.toFixed(2)}</p>
+                <p>Rs. {priceDetails.totalPrice.toFixed(2)}</p>
               </div>
             </div>
 
             <button className="bg-lime-500 w-full py-3 hover:bg-lime-600 font-semibold text-white">
-              Place Order
+              Place Your Order
             </button>
           </div>
         </div>
