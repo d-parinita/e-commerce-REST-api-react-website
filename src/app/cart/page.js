@@ -1,7 +1,7 @@
 'use client'
 import React, { useEffect, useState } from "react";
 import { RxCross2 } from "react-icons/rx";
-import { getCart, removeProduct, userProfile } from "../apiService";
+import { codPlaceOrder, getCart, removeProduct, userProfile } from "../apiService";
 import { toast } from "react-toastify";
 import { routes } from "../utils/routes";
 import { useRouter } from "next/navigation";
@@ -17,17 +17,15 @@ export default function Page() {
   const getCartData = async () => {
     try {
       const response = await getCart()
-      console.log(response.data)
       setCartItems(response?.data)
     } catch (error) {
-      toast.error('User not available')
+      toast.error('Product not available')
     }
   }
 
   const getProfileData = async () => {
     try {
       const response = await userProfile()
-      console.log(response.data.data.address.address)
       setProfileData(response.data.data.address.address)
     } catch (error) {
       toast.error('User not available')
@@ -62,11 +60,22 @@ export default function Page() {
     const item = [...cartItems]
     try {
       const response = await removeProduct(id)
-      console.log(response)
       item.splice(i, 1)
       setCartItems(item)
     } catch (error) {
-      toast.error('User not available')
+      toast.error('Unable to remove')
+    }
+  }
+
+  const placeOrderByCod = async() => {
+    if (selectedPayment == 'cod') {
+      try {
+        const response = await codPlaceOrder({})
+        console.log(response)
+        router.push(routes.ORDERS)
+      } catch (error) {
+        toast.error('Order not placed')
+      }
     }
   }
 
@@ -139,24 +148,12 @@ export default function Page() {
                 <input
                   type="radio"
                   name="payment"
-                  value="credit"
-                  checked={selectedPayment === "credit"}
-                  onChange={() => setSelectedPayment("credit")}
+                  value="online"
+                  checked={selectedPayment === "online"}
+                  onChange={() => setSelectedPayment("online")}
                   className="w-5 h-5 text-lime-500 accent-lime-500"
                 />
-                <span>Credit/Debit Card</span>
-              </label>
-
-              <label className="flex items-center space-x-2 cursor-pointer">
-                <input
-                  type="radio"
-                  name="payment"
-                  value="upi"
-                  checked={selectedPayment === "upi"}
-                  onChange={() => setSelectedPayment("upi")}
-                  className="w-5 h-5 text-lime-500 accent-lime-500"
-                />
-                <span>UPI / Net Banking</span>
+                <span>Online Payment</span>
               </label>
             </div>
           </div>
@@ -183,7 +180,7 @@ export default function Page() {
               </div>
             </div>
 
-            <button className="bg-lime-500 w-full py-3 hover:bg-lime-600 font-semibold text-white">
+            <button onClick={placeOrderByCod} className="bg-lime-500 w-full py-3 hover:bg-lime-600 font-semibold text-white">
               Place Your Order
             </button>
           </div>

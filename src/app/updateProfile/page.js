@@ -38,14 +38,11 @@ export default function Page() {
   const editProfile = async() => {
     try {
       const response = await userProfile()
-      console.log(response.data.data);
       if (response?.data?.data) {
         setUpdateData(response?.data?.data)
       }
     } catch (error) {
-      console.log(error);
-      
-      toast.error('User not available')
+      toast.error('Unable to edit')
     }
   }
 
@@ -61,7 +58,6 @@ export default function Page() {
           Update Your Profile
         </h2>
         <form onSubmit={(e) => handleUpdate(e)} className="space-y-6">
-          {/* First Name & Last Name */}
           <div className="flex space-x-4">
             <div className="w-1/2">
               <label htmlFor="first-name" className="block text-sm text-gray-300">
@@ -91,7 +87,6 @@ export default function Page() {
             </div>
           </div>
 
-          {/* Phone Number */}
           <div>
             <label htmlFor="phone" className="block text-sm text-gray-300">
               Phone Number
@@ -107,7 +102,6 @@ export default function Page() {
             />
           </div>
 
-          {/* Address Fields */}
           <div>
             <label className="block text-sm text-gray-300">Address</label>
             <div className="grid grid-cols-2 gap-4 mt-2">
@@ -170,7 +164,6 @@ export default function Page() {
             />
           </div>
 
-          {/* Submit Button */}
           <button
             type="submit"
             className="w-full bg-lime-400 text-white py-2 px-4 rounded-lg font-semibold hover:bg-lime-600 transition"

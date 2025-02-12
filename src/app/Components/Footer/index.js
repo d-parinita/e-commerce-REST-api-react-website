@@ -5,9 +5,7 @@ export default function Footer() {
   return (
     <footer className="bg-gray-900 text-white py-8">
       <div className="container mx-auto px-4">
-        {/* Top Section */}
         <div className="flex flex-col md:flex-row justify-between mb-8 space-y-6 md:space-y-0">
-          {/* About Section */}
           <div className="flex-1">
             <h2 className="text-xl font-bold mb-3">About Us</h2>
             <p className="text-gray-400">
@@ -15,7 +13,6 @@ export default function Footer() {
             </p>
           </div>
 
-          {/* Navigation Links */}
           <div className="flex-1">
             <h2 className="text-xl font-bold mb-3">Quick Links</h2>
             <ul className="space-y-2">
@@ -26,7 +23,6 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Contact Section */}
           <div className="flex-1">
             <h2 className="text-xl font-bold mb-3">Contact Us</h2>
             <ul className="space-y-2 text-gray-400">
@@ -37,10 +33,8 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Divider */}
         <div className="border-t border-gray-700 mb-4"></div>
 
-        {/* Social Media Icons */}
         <div className="flex justify-between items-center">
           <p className="text-gray-500">© 2025 Your Company. All rights reserved.</p>
 

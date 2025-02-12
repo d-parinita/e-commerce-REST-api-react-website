@@ -134,3 +134,12 @@ export const removeProduct = async(id) => {
         throw error
     }
 }
+
+export const codPlaceOrder = async(payload) => {
+    try {
+        const data = await ecommerceApi.post(apiConstants.CODPLACEORDER, payload)
+        return data
+    } catch (error) {
+        throw error
+    }
+} 

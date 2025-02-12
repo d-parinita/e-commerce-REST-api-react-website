@@ -14,7 +14,6 @@ export default function Page() {
   const getProfileData = async () => {
     try {
         const response = await userProfile()
-        console.log(response);
         setProfileData(response.data.data)
     } catch (error) {
         toast.error('User not available')
@@ -38,7 +37,6 @@ export default function Page() {
         </h2>
 
         <div className="space-y-8">
-          {/* Name Section */}
           <div className="flex justify-between bg-gray-700 p-4 rounded-lg">
             <div>
               <p className="text-gray-400 text-sm">First Name</p>
@@ -46,13 +44,11 @@ export default function Page() {
             </div>
           </div>
 
-          {/* Phone Number */}
           <div className="bg-gray-700 p-4 rounded-lg">
             <p className="text-gray-400 text-sm">Phone Number</p>
             <p className="text-white font-semibold text-lg">{profileData?.phoneNumber}</p>
           </div>
 
-          {/* Address Section */}
           <div className="bg-gray-700 p-4 rounded-lg">
             <p className="text-gray-400 text-sm mb-2">Address</p>
             <div className="grid grid-cols-2 gap-6">
@@ -83,7 +79,6 @@ export default function Page() {
             </div>
           </div>
 
-          {/* Edit Button */}
           <div className="flex justify-center">
             <button onClick={editUserData} className="bg-lime-400 text-white py-2 px-6 rounded-lg font-semibold hover:bg-lime-600 transition">
               Edit Profile

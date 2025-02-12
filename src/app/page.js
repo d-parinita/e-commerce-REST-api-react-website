@@ -18,7 +18,6 @@ export default function Home() {
   const getCategoriesData = async() => {
     try {
       const response = await getCategories()
-      console.log(response);
       setCategories(response?.data?.data)
     } catch (error) {
       toast.error('Category not available')
@@ -28,7 +27,6 @@ export default function Home() {
   const getProductsData = async() => {
     try {
       const response = await getProducts(15)
-      console.log(response);
       setProducts(response?.data?.products)
     } catch (error) {
       toast.error('Product not available')

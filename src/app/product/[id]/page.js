@@ -20,10 +20,7 @@ export default function Page({ params }) {
   const getProduct = async() => {
     try {
         const response = await getProductById(id)
-        console.log(response);
         setProduct(response?.data?.data)
-        console.log(response?.data?.data);
-
     } catch (error) {
         toast.error('Product not available')
     }
@@ -38,7 +35,6 @@ export default function Page({ params }) {
     try {
         const response = await addToCart(payload)
         toast.success('Product added successfully')
-        console.log(response);
     } catch (error) {
         toast.error('Product not available')
     }

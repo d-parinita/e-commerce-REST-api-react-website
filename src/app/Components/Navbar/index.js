@@ -11,11 +11,9 @@ import { useRouter } from 'next/navigation';
 import { routes } from '@/app/utils/routes';
 
 const navigation = [
-  { name: 'Men', href: '#', current: true },
-  { name: 'Women', href: '#', current: false },
-  { name: 'Kids', href: '#', current: false },
-  { name: 'Beauty', href: '#', current: false },
-  { name: 'Home & Living', href: '#', current: false },
+  { name: 'Shop', href: '#', current: true },
+  { name: 'Categories', href: '#', current: false },
+  { name: 'Products', href: '#', current: false }
 ]
 
 function classNames(...classes) {

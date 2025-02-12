@@ -37,7 +37,6 @@ export default function Page() {
           Welcome Back
         </h2>
         <form onSubmit={(e) => handleSignIn(e)} className="space-y-6">
-          {/* Email Input */}
           <div>
             <label htmlFor="email" className="block text-sm text-gray-300">
               Email Address
@@ -52,7 +51,6 @@ export default function Page() {
             />
           </div>
 
-          {/* Password Input */}
           <div>
             <label htmlFor="password" className="block text-sm text-gray-300">
               Password
@@ -67,7 +65,6 @@ export default function Page() {
             />
           </div>
 
-          {/* Submit Button */}
           <button
             type="submit"
             className="w-full bg-lime-400 text-white py-2 px-4 rounded-lg font-semibold hover:bg-lime-600 transition"
@@ -76,7 +73,6 @@ export default function Page() {
           </button>
         </form>
 
-        {/* Additional Links */}
         <div className="flex justify-between items-center mt-4 text-sm text-gray-400">
           <Link href="#" className="hover:text-lime-400">
             Forgot Password?

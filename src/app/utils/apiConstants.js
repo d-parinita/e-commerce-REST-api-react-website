@@ -9,5 +9,6 @@ export const apiConstants = {
     GETPRODUCTBYID: 'products/get-product',
     ADDTOCART: 'orders/add-to-cart',
     GETCART: 'orders/get-cart',
-    REMOVEPRODUCT: 'orders/remove-from-cart/'
+    REMOVEPRODUCT: 'orders/remove-from-cart/',
+    CODPLACEORDER: 'orders/cod-order'
 }
