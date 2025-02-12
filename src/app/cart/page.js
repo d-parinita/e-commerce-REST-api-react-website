@@ -1,10 +1,10 @@
 'use client'
-import React, { useEffect, useState } from "react";
-import { RxCross2 } from "react-icons/rx";
-import { codPlaceOrder, getCart, removeProduct, userProfile } from "../apiService";
+import React, { Fragment, useEffect, useState } from "react";
+import { codPlaceOrder, createOrder, getCart, removeProduct, testValidatePayment, userProfile } from "../apiService";
 import { toast } from "react-toastify";
 import { routes } from "../utils/routes";
 import { useRouter } from "next/navigation";
+import CartProductCard from "../Components/CartProductCard";
 
 export default function Page() {
 
@@ -67,16 +67,77 @@ export default function Page() {
     }
   }
 
-  const placeOrderByCod = async() => {
+  const placeOrder = async() => {
     if (selectedPayment == 'cod') {
       try {
         const response = await codPlaceOrder({})
-        console.log(response)
         router.push(routes.ORDERS)
       } catch (error) {
         toast.error('Order not placed')
       }
+    } else {
+      try {
+        const response = await createOrder({})
+        displayRpay()
+      } catch (error) {
+        toast.error('Order not placed')
+      }
     }
+  }
+
+  const validatePayment = async() => {
+    try {
+      const response = await testValidatePayment({})
+      router.push(routes.ORDERS)
+    } catch (error) {
+      toast.error('Order not placed')
+    }
+  } 
+
+  function loadScript(src) {
+    return new Promise((resolve) => {
+      const script = document.createElement("script");
+      script.src = src;
+      script.onload = () => {
+        resolve(true);
+      };
+      script.onerror = () => {
+        resolve(false);
+      };
+      document.body.appendChild(script);
+    });
+  }
+
+  const displayRpay = async () => {
+    const res = await loadScript(
+      "https://checkout.razorpay.com/v1/checkout.js"
+    );
+
+    if (!res) {
+      toast.error("SDK failed to load ! Check your internet connection");
+      return;
+    }
+
+    const options = {
+      key: process.env.NEXT_PUBLIC_RAZORPAY_PRODUCTION_KEY || process.env.NEXT_PUBLIC_RAZORPAY_TEST_KEY,
+      amount: allTotal() * 100,
+      currency: "INR",
+      name: "HR",
+      description: "Payment",
+
+      handler: function (response) {
+        const paymentIden = response.razorpay_payment_id;
+        validatePayment()
+      },
+      theme: {
+        color: "#111827",
+      },
+    };
+    let rzp1 = new window.Razorpay(options);
+    rzp1.on("payment.failed", function (response) {
+      toast.error(response.error.reason);
+    });
+    rzp1.open();
   }
 
   useEffect(() => {
@@ -90,31 +151,18 @@ export default function Page() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2 space-y-8">
           {cartItems.map((item, i) => (
-            <div
-              key={item._id}
-              className="bg-gray-900 p-4 flex items-center justify-between relative"
-            >
-              <RxCross2 onClick={() => removeCartProduct(item._id, i)} className="w-6 h-6 text-gray-400 absolute top-3 right-3 cursor-pointer hover:text-red-500" />
-              <img
-                src="https://images.pexels.com/photos/18182064/pexels-photo-18182064/free-photo-of-young-woman-posing-in-black-see-through-top-and-white-jeans.jpeg?auto=compress&cs=tinysrgb&w=600"
-                alt="Casual Hoodie"
-                className="w-32 h-41 object-cover"
+            <Fragment key={item._id}>
+              <CartProductCard
+                img={item.image}
+                title={item.title}
+                summary={item.summary}
+                size={item.size}
+                quantity={item.quantity}
+                amount={item.amount}
+                removeCartProduct={() => removeCartProduct(item._id, i)}
+                isShowCancelBtn={false}
               />
-              <div className="ml-4 flex-grow space-y-2">
-                <h3 className="text-xl font-semibold">Casual Hoodie</h3>
-                <p className="text-sm text-gray-400">Perfect for chilly evenings.</p>
-                <p className="text-sm text-gray-400">
-                  Size: <span className="font-medium">M</span>
-                </p>
-                <p className="text-sm text-gray-400">
-                  Quantity: <span className="font-medium">{item.quantity}</span>
-                </p>
-                <p className="text-lg font-bold text-lime-400">
-                  Rs. {item.amount.toFixed(2)}
-                </p>
-                <p className="text-sm text-gray-400">✔ 7 Days Easy Return</p>
-              </div>
-            </div>
+            </Fragment>
           ))}
         </div>
 
@@ -180,7 +228,7 @@ export default function Page() {
               </div>
             </div>
 
-            <button onClick={placeOrderByCod} className="bg-lime-500 w-full py-3 hover:bg-lime-600 font-semibold text-white">
+            <button onClick={placeOrder} className="bg-lime-500 w-full py-3 hover:bg-lime-600 font-semibold text-white">
               Place Your Order
             </button>
           </div>

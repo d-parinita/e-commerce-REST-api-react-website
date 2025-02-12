@@ -152,3 +152,39 @@ export const codPlaceOrder = async(payload) => {
         throw error
     }
 } 
+
+export const getOrders = async() => {
+    try {
+        const data = await ecommerceApi.get(apiConstants.GETORDERS)
+        return data
+    } catch (error) {
+        throw error
+    }
+}
+
+export const cancel = async(id, payload) => {
+    try {
+        const data = await ecommerceApi.post(apiConstants.CANCELORDER + id, payload)
+        return data
+    } catch (error) {
+        throw error
+    }
+}
+
+export const createOrder = async(payload) => {
+    try {
+        const data = await ecommerceApi.post(apiConstants.CREATEORDER, payload)
+        return data
+    } catch (error) {
+        throw error
+    }
+} 
+
+export const testValidatePayment = async(payload) => {
+    try {
+        const data = await ecommerceApi.post(apiConstants.TESTVALIDATEPAYMENT, payload)
+        return data
+    } catch (error) {
+        throw error
+    }
+} 
