@@ -90,6 +90,15 @@ export const getCategories = async() => {
     }
 }
 
+export const getAllProducts = async(pageNumber) => {
+    try {
+        const data = await ecommerceApi.get(apiConstants.GETPRODUCT + `?pageNumber=${pageNumber}`)
+        return data
+    } catch (error) {
+        throw error
+    }
+}
+
 export const getProducts = async(limit) => {
     try {
         const data = await ecommerceApi.get(apiConstants.GETPRODUCT + `?limit=${limit}`)
