@@ -7,5 +7,6 @@ export const routes = {
     PRODUCT: '/product',
     CART: '/cart',
     ORDERS: '/orders',
-    ALLPRODUCTS: '/allProducts'
+    ALLPRODUCTS: '/allProducts',
+    PRODUCTBYCATEGORY: '/productCategory'
 }

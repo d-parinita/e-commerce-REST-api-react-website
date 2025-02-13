@@ -44,11 +44,6 @@ export default function Page({ params }) {
     getProduct()
   }, [])
 
-  useEffect(() => {
-    console.log(product);
-    
-  }, [product])
-
   return (
     <>
     <div className=" min-h-screen text-white px-8 py-10">

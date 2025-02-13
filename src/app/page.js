@@ -46,10 +46,12 @@ export default function Home() {
         <div className="grid grid-cols-7 gap-6">
           {categories?.map((category, i) => (
             <Fragment key={category._id}>
-              <CategoryCard
-                imgUrl={category.imageUrl}
-                title={category.name}
-              />
+              <Link href={routes.PRODUCTBYCATEGORY + '/' + category._id}>
+                <CategoryCard
+                  imgUrl={category.imageUrl}
+                  title={category.name}
+                />
+              </Link>
             </Fragment>
           ))}
         </div>
