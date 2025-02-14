@@ -12,7 +12,7 @@ export default function Page() {
 
   const [cartItems, setCartItems] = useState([])
   const [profileData, setProfileData] = useState(null) 
-  const [selectedPayment, setSelectedPayment] = useState("cod");
+  const [selectedPayment, setSelectedPayment] = useState("cod")
 
   const getCartData = async () => {
     try {

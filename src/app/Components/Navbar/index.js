@@ -1,10 +1,10 @@
 'use client'
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { IoIosHeartEmpty } from "react-icons/io";
 import { IoPersonOutline } from "react-icons/io5";
 import { HiOutlineShoppingBag, HiOutlineXMark, HiBars3CenterLeft } from "react-icons/hi2";
-import { signOut } from '@/app/apiService';
+import { getCart, signOut } from '@/app/apiService';
 import { toast } from 'react-toastify';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -23,8 +23,19 @@ export default function Navbar() {
 
   const router = useRouter()
 
+  const [addedProducts, setAddedProducts] = useState(null)
+
   if (typeof window !== 'undefined') {
     var token = localStorage.getItem('token')
+  }
+
+  const getCartData = async () => {
+    try {
+      const response = await getCart()
+      setAddedProducts(response?.data.length)
+    } catch (error) {
+      toast.error('Product not available')
+    }
   }
 
   const handleSignOut = async() => {
@@ -38,6 +49,10 @@ export default function Navbar() {
       toast.error(error.response?.data?.error)
     }
   }
+
+  useEffect(() => {
+    getCartData()
+  }, [])
 
   return (
     <Disclosure as="nav">
@@ -144,6 +159,10 @@ export default function Navbar() {
                 <span className="absolute -inset-1.5" />
                 <span className="sr-only">Cart Items</span>
                 <HiOutlineShoppingBag aria-hidden="true" className="size-6" />
+                {addedProducts ? 
+                  (<span className="absolute -top-1 -right-1 bg-red-600 text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full">
+                    {addedProducts}
+                  </span>) : ''}
               </button>
             </Link>
           </div>

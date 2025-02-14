@@ -189,9 +189,9 @@ export const testValidatePayment = async(payload) => {
     }
 } 
 
-export const getProductsByCategory = async(id) => {
+export const getProductsByCategory = async(params) => {
     try {
-        const data = await ecommerceApi.get(apiConstants.GETPRODUCT + `?category=${id}`)
+        const data = await ecommerceApi.get(apiConstants.GETPRODUCT + '?' + params)
         return data
     } catch (error) {
         throw error

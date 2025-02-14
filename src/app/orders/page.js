@@ -7,11 +7,17 @@ import CartProductCard from '../Components/CartProductCard'
 export default function Page() {
 
   const [orderData, setOrderData] = useState([])
+  const [hasNextPage, setHasNextPage] = useState(true)
+  const [currentPageNo, setCurrentPageNo] = useState(1)
 
   const getAllOrders = async () => {
+    // const preparePayload = `pageNumber=${currentPageNo}&limit=50`
     try {
       const response = await getOrders()
+      console.log(response);
+      
       setOrderData(response?.data)
+      // setHasNextPage(response?.hasNextPage)
     } catch (error) {
       toast.error('No orders')
     }
@@ -54,6 +60,19 @@ export default function Page() {
             </Fragment>
           ))}
         </div>
+
+        {/* <div className="flex justify-center space-x-2 py-12">
+          {currentPageNo > 1 ? (
+            <button onClick={() => setCurrentPageNo(currentPageNo-1)} className="px-3 py-1 text-sm font-medium text-white bg-gray-700 rounded-md hover:bg-gray-800 transition">
+              &lt; Previous
+            </button>
+          ) : ''}         
+          {hasNextPage ? (
+            <button onClick={() => setCurrentPageNo(currentPageNo+1)} className="px-3 py-1 text-sm font-medium text-white bg-gray-700 rounded-md hover:bg-gray-800 transition">
+              Next &gt;
+            </button>
+          ) : ''}
+        </div> */}
     </div>
     </>
   )
