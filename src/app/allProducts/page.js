@@ -141,7 +141,7 @@ export default function Page() {
         <div className="flex justify-center space-x-2 py-12">
           {currentPageNo > 1 ? (
             <button onClick={() => setCurrentPageNo(currentPageNo-1)} className="px-3 py-1 text-sm font-medium text-white bg-gray-700 rounded-md hover:bg-gray-800 transition">
-              &lt; Previous
+              &lt; Previous 
             </button>
           ) : ''}         
           {hasNextPage ? (
