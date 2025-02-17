@@ -9,6 +9,7 @@ import { toast } from 'react-toastify';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { routes } from '@/app/utils/routes';
+import { useLoader } from '@/app/context/LoaderContext';
 
 const navigation = [
   { name: 'Categories', href: '#category', current: false },
@@ -22,6 +23,7 @@ function classNames(...classes) {
 export default function Navbar() {
 
   const router = useRouter()
+  const { setLoading } = useLoader()
 
   const [addedProducts, setAddedProducts] = useState(null)
 
@@ -30,11 +32,14 @@ export default function Navbar() {
   }
 
   const getCartData = async () => {
+    setLoading(true)
     try {
       const response = await getCart()
       setAddedProducts(response?.data.length)
     } catch (error) {
       toast.error('Product not available')
+    } finally {
+      setLoading(false)
     }
   }
 
