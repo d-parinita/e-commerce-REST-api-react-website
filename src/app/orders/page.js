@@ -39,6 +39,8 @@ export default function Page() {
   return (
     <>
     <div className="min-h-screen text-white mx-24 px-8 py-10">
+      
+      {orderData.length ? (<>
         <div className='space-y-8'>
           {orderData?.map((order, i) => (
             <Fragment key={order._id}>
@@ -73,6 +75,9 @@ export default function Page() {
             </button>
           ) : ''}
         </div> */}
+      </>) : (<>
+        <h2 className="text-center text-lg mt-10">No orders available!</h2>
+      </>)}
     </div>
     </>
   )

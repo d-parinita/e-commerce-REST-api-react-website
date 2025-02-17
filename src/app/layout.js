@@ -30,7 +30,9 @@ export default function RootLayout({ children }) {
           position="top-right"
           theme="dark"
         />
-        {children}
+        <div className="pt-16">
+          {children}
+        </div>
         <Footer/>
       </body>
     </html>

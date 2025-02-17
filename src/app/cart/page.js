@@ -17,6 +17,8 @@ export default function Page() {
   const getCartData = async () => {
     try {
       const response = await getCart()
+      console.log(response.data);
+      
       setCartItems(response?.data)
     } catch (error) {
       toast.error('Product not available')
@@ -147,10 +149,11 @@ export default function Page() {
 
   return (
     <div className="min-h-screen text-white mx-12 px-8 py-10">
-
+          
+      {cartItems.length ? (<>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2 space-y-8">
-          {cartItems.map((item, i) => (
+          {cartItems?.map((item, i) => (
             <Fragment key={item._id}>
               <CartProductCard
                 img={item.image}
@@ -163,7 +166,7 @@ export default function Page() {
                 isShowCancelBtn={false}
               />
             </Fragment>
-          ))}
+          ))}         
         </div>
 
         <div className="bg-gray-900 p-6 h-fit space-y-6">
@@ -234,6 +237,9 @@ export default function Page() {
           </div>
         </div>
       </div>
+      </>) : (<>
+        <h2 className="text-center text-lg mt-10">No products added!</h2>
+      </>)}
     </div>
   );
 }

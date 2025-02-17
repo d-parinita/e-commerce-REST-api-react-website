@@ -25,7 +25,6 @@ export default function Page() {
 
   const handleUpdate = async(e) => {
     e.preventDefault()
-    console.log(updateData);
     try {
       const response = await updateUser(updateData)
       toast.success('Profile updated successfully')

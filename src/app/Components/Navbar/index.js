@@ -11,7 +11,7 @@ import { useRouter } from 'next/navigation';
 import { routes } from '@/app/utils/routes';
 
 const navigation = [
-  { name: 'Categories', href: '#', current: false },
+  { name: 'Categories', href: '#category', current: false },
   { name: 'Products', href: routes.ALLPRODUCTS, current: false }
 ]
 
@@ -51,11 +51,13 @@ export default function Navbar() {
   }
 
   useEffect(() => {
-    getCartData()
+    if (token) {
+      getCartData()
+    }
   }, [])
 
   return (
-    <Disclosure as="nav">
+    <Disclosure as="nav" className="fixed top-0 left-0 w-full z-50 bg-gray-800 shadow-md">
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
         <div className="relative flex h-16 items-center justify-between">
           <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">

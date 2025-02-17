@@ -41,7 +41,7 @@ export default function Home() {
   return (
     <>
       <HeroSec/>
-      <div className="text-center mt-12 text-4xl font-bold">Shop by Category</div>
+      <div id="category" className="text-center mt-12 text-4xl font-bold">Shop by Category</div>
       <div className="mx-[10rem] py-6 mt-10">
         <div className="grid grid-cols-7 gap-6">
           {categories?.map((category, i) => (

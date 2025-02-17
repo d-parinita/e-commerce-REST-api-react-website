@@ -17,7 +17,6 @@ export default function Page() {
 
   const handleSignIn = async(e) => {
     e.preventDefault()
-    console.log(userData);
     try {
       const response = await signIn(userData)
       toast.success('Signed in successfully')
