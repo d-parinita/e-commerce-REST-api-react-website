@@ -15,7 +15,7 @@ export default function ProductCard({ title, summary, price, img }) {
       <div className='px-4 pb-4'>
         <div className='flex justify-between'>
           <h3 className="text-md font-bold text-white mb-1">{title}</h3>
-          <IoIosHeartEmpty className="w-6 h-6 text-gray-400 right-3 cursor-pointer"/>
+          {/* <IoIosHeartEmpty className="w-6 h-6 text-gray-400 right-3 cursor-pointer"/> */}
         </div>
         <p className="text-sm text-gray-400 mb-2">
             {summary}

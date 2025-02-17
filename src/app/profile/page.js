@@ -4,19 +4,24 @@ import { userProfile } from '../apiService'
 import { toast } from 'react-toastify'
 import { useRouter } from 'next/navigation'
 import { routes } from '../utils/routes'
+import { useLoader } from '../context/LoaderContext'
 
 export default function Page() {
 
   const router = useRouter()
+  const { setLoading } = useLoader()
   
   const [profileData, setProfileData] = useState(null)  
 
   const getProfileData = async () => {
+    setLoading(true)
     try {
         const response = await userProfile()
         setProfileData(response.data.data)
     } catch (error) {
         toast.error('User not available')
+    } finally {
+      setLoading(false)
     }
   }
 

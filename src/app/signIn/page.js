@@ -5,10 +5,12 @@ import React, { useState } from 'react'
 import { toast } from 'react-toastify'
 import { signIn } from '../apiService'
 import { routes } from '../utils/routes'
+import { useLoader } from '../context/LoaderContext'
 
 export default function Page() {
 
   const router = useRouter()
+  const { setLoading } = useLoader()
 
   const [userData, setUserData] = useState({
     email: '',
@@ -16,6 +18,7 @@ export default function Page() {
   })
 
   const handleSignIn = async(e) => {
+    setLoading(true)
     e.preventDefault()
     try {
       const response = await signIn(userData)
@@ -25,6 +28,8 @@ export default function Page() {
       router.push(routes.HOME)
     } catch (error) {
       toast.error(error.response?.data?.error)
+    } finally {
+      setLoading(false)
     }
   }
 

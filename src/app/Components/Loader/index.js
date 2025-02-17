@@ -11,7 +11,7 @@ export default function Loader() {
 
   return (
     <>
-    <div className='h-screen flex justify-center items-center'>
+    <div className='fixed inset-0 flex justify-center items-center bg-black bg-opacity-90 z-50'>
         <DotLoader
             color='#fff'
             loading={loading}

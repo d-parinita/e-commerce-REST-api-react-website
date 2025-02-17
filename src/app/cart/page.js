@@ -5,16 +5,19 @@ import { toast } from "react-toastify";
 import { routes } from "../utils/routes";
 import { useRouter } from "next/navigation";
 import CartProductCard from "../Components/CartProductCard";
+import { useLoader } from "../context/LoaderContext";
 
 export default function Page() {
 
   const router = useRouter()
+  const { setLoading } = useLoader()
 
   const [cartItems, setCartItems] = useState([])
   const [profileData, setProfileData] = useState(null) 
   const [selectedPayment, setSelectedPayment] = useState("cod")
 
   const getCartData = async () => {
+    setLoading(true)
     try {
       const response = await getCart()
       console.log(response.data);
@@ -22,15 +25,20 @@ export default function Page() {
       setCartItems(response?.data)
     } catch (error) {
       toast.error('Product not available')
+    } finally {
+      setLoading(false)
     }
   }
 
   const getProfileData = async () => {
+    setLoading(true)
     try {
       const response = await userProfile()
       setProfileData(response.data.data.address.address)
     } catch (error) {
       toast.error('User not available')
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -59,6 +67,7 @@ export default function Page() {
   }
 
   const removeCartProduct = async(id, i) => {
+    setLoading(true)
     const item = [...cartItems]
     try {
       const response = await removeProduct(id)
@@ -66,16 +75,21 @@ export default function Page() {
       setCartItems(item)
     } catch (error) {
       toast.error('Unable to remove')
+    } finally {
+      setLoading(false)
     }
   }
 
   const placeOrder = async() => {
+    setLoading(true)
     if (selectedPayment == 'cod') {
       try {
         const response = await codPlaceOrder({})
         router.push(routes.ORDERS)
       } catch (error) {
         toast.error('Order not placed')
+      } finally {
+        setLoading(false)
       }
     } else {
       try {
@@ -83,16 +97,21 @@ export default function Page() {
         displayRpay()
       } catch (error) {
         toast.error('Order not placed')
+      } finally {
+        setLoading(false)
       }
     }
   }
 
   const validatePayment = async() => {
+    setLoading(true)
     try {
       const response = await testValidatePayment({})
       router.push(routes.ORDERS)
     } catch (error) {
       toast.error('Order not placed')
+    } finally {
+      setLoading(false)
     }
   } 
 

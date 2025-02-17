@@ -9,27 +9,36 @@ import ProductCard from "./Components/ProductCard"
 import { getPrice } from "./utils/commonFunc"
 import Link from "next/link"
 import { routes } from "./utils/routes"
+import { useLoader } from "./context/LoaderContext"
 
 export default function Home() {
+
+  const { setLoading } = useLoader()
 
   const [categories, setCategories] = useState([])
   const [products, setProducts] = useState([])
 
   const getCategoriesData = async() => {
+    setLoading(true)
     try {
       const response = await getCategories()
       setCategories(response?.data?.data)
     } catch (error) {
       toast.error('Category not available')
+    } finally {
+      setLoading(false)
     }
   }
 
   const getProductsData = async() => {
+    setLoading(true)
     try {
       const response = await getProducts(15)
       setProducts(response?.data?.products)
     } catch (error) {
       toast.error('Product not available')
+    } finally {
+      setLoading(false)
     }
   }
 

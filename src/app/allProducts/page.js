@@ -8,8 +8,11 @@ import { getPrice } from '../utils/commonFunc'
 import { BiSortAlt2 } from "react-icons/bi";
 import { FILTER_BY_PRICE, FILTER_BY_SIZE } from '../utils/constVariables'
 import { toast } from 'react-toastify'
+import { useLoader } from '../context/LoaderContext'
 
 export default function Page() {
+
+  const { setLoading } = useLoader()
 
   const [products, setProducts] = useState(null)
   const [hasNextPage, setHasNextPage] = useState(true)
@@ -22,6 +25,7 @@ export default function Page() {
   })
 
   const getAllProductsPage = async () => {
+    setLoading(true)
     const preparePayload = `pageNumber=${currentPageNo}&limit=50&${params}`
     try {
       const response = await getAllProducts(preparePayload)
@@ -29,6 +33,8 @@ export default function Page() {
       setHasNextPage(response?.data?.hasNextPage)
     } catch (error) {
       toast.error('No product available')
+    } finally {
+      setLoading(false)
     }
   }
 

@@ -8,10 +8,12 @@ import React, { Fragment, use, useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { BiSortAlt2 } from "react-icons/bi";
 import { FILTER_BY_PRICE, FILTER_BY_SIZE } from '@/app/utils/constVariables'
+import { useLoader } from '@/app/context/LoaderContext'
 
 export default function Page({params}) {
 
-  const { id } = use(params)  
+  const { id } = use(params) 
+  const { setLoading } = useLoader() 
 
   const [product, setProduct] = useState([])
   const [hasNextPage, setHasNextPage] = useState(true)
@@ -24,6 +26,7 @@ export default function Page({params}) {
   })
 
   const getProductByCategory = async() => {
+    setLoading(true)
     const preparePayload = `category=${id}&pageNumber=${currentPageNo}&limit=50&${param}`
       try {
           const response = await getProductsByCategory(preparePayload)
@@ -31,6 +34,8 @@ export default function Page({params}) {
           setHasNextPage(response?.data?.hasNextPage)
       } catch (error) {
           toast.error('Product not available')
+      } finally {
+        setLoading(false)
       }
   }
 

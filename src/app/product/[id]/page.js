@@ -5,10 +5,12 @@ import { HiOutlineShoppingBag, HiMinus } from "react-icons/hi2";
 import { addToCart, getProductById } from '@/app/apiService';
 import { toast } from 'react-toastify';
 import { AiOutlinePlus } from "react-icons/ai";
+import { useLoader } from '@/app/context/LoaderContext';
 
 export default function Page({ params }) {
 
-  const { id } = use(params);
+  const { id } = use(params)
+  const { setLoading } = useLoader()
 
   const [product, setProduct] = useState(null)
   const [selectedSize, setSelectedSize] = useState('M');
@@ -18,15 +20,19 @@ export default function Page({ params }) {
   const decrease = () => setSelectedQty((prev) => Math.max(prev - 1, 1));
 
   const getProduct = async() => {
+    setLoading(true)
     try {
         const response = await getProductById(id)
         setProduct(response?.data?.data)
     } catch (error) {
         toast.error('Product not available')
+    } finally {
+      setLoading(false)
     }
   }
 
   const addToMyCart = async() => {
+    setLoading(true)
     const payload = {
       productId: product?._id,
       quantity: selectedQty,
@@ -37,6 +43,8 @@ export default function Page({ params }) {
         toast.success('Product added successfully')
     } catch (error) {
         toast.error('Product not available')
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -133,10 +141,10 @@ export default function Page({ params }) {
               <HiOutlineShoppingBag className="w-5 h-5" />
               <span>Add to Cart</span>
             </button>
-            <button className="flex items-center space-x-2 bg-gray-700 text-white px-4 py-3 rounded-lg hover:outline-gray-500 hover:outline transition">
+            {/* <button className="flex items-center space-x-2 bg-gray-700 text-white px-4 py-3 rounded-lg hover:outline-gray-500 hover:outline transition">
               <IoIosHeartEmpty className="w-5 h-5" />
               <span>Wishlist</span>
-            </button>
+            </button> */}
           </div>
           <div className="space-y-1 mt-4">
             <p className="text-gray-400">✔ 100% Original Products</p>

@@ -3,14 +3,18 @@ import React, { Fragment, useEffect, useState } from 'react'
 import { cancel, getOrders } from '../apiService'
 import { toast } from 'react-toastify'
 import CartProductCard from '../Components/CartProductCard'
+import { useLoader } from '../context/LoaderContext'
 
 export default function Page() {
+
+  const { setLoading } = useLoader()
 
   const [orderData, setOrderData] = useState([])
   const [hasNextPage, setHasNextPage] = useState(true)
   const [currentPageNo, setCurrentPageNo] = useState(1)
 
   const getAllOrders = async () => {
+    setLoading(true)
     // const preparePayload = `pageNumber=${currentPageNo}&limit=50`
     try {
       const response = await getOrders()
@@ -20,15 +24,20 @@ export default function Page() {
       // setHasNextPage(response?.hasNextPage)
     } catch (error) {
       toast.error('No orders')
+    } finally {
+      setLoading(false)
     }
   }
 
   const cancelOrder = async(id, i) => {
+    setLoading(true)
     try {
       const response = await cancel(id, {})
       getAllOrders()
     } catch (error) {
       toast.error('Error')
+    } finally {
+      setLoading(false)
     }
   }
 

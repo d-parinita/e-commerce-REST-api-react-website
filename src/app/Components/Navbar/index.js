@@ -44,6 +44,7 @@ export default function Navbar() {
   }
 
   const handleSignOut = async() => {
+    setLoading(true)
     try {
       const response = await signOut()
       toast.success('Sign out successfully')
@@ -52,6 +53,8 @@ export default function Navbar() {
       router.push('/')
     } catch (error) {
       toast.error(error.response?.data?.error)
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -147,7 +150,7 @@ export default function Navbar() {
                 </>)}
               </MenuItems>
             </Menu>
-            <Link href='#'>
+            {/* <Link href='#'>
               <button
                 type="button"
                 className="relative rounded-full p-1 px-3 text-white"
@@ -156,7 +159,7 @@ export default function Navbar() {
                 <span className="sr-only">Wishlist</span>
                 <IoIosHeartEmpty aria-hidden="true" className="size-6" />
               </button>
-            </Link>
+            </Link> */}
 
             <Link href={routes.CART}>
               <button

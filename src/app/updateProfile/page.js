@@ -4,10 +4,12 @@ import { updateUser, userProfile } from '../apiService'
 import { toast } from 'react-toastify'
 import { useRouter } from 'next/navigation'
 import { routes } from '../utils/routes'
+import { useLoader } from '../context/LoaderContext'
 
 export default function Page() {
 
   const router = useRouter()
+  const { setLoading } = useLoader()
 
   const [updateData, setUpdateData] = useState({
     firstname: '',
@@ -24,6 +26,7 @@ export default function Page() {
   })
 
   const handleUpdate = async(e) => {
+    setLoading(true)
     e.preventDefault()
     try {
       const response = await updateUser(updateData)
@@ -31,10 +34,13 @@ export default function Page() {
       router.push(routes.HOME)
     } catch (error) {
       toast.error('Error in updating profile')
+    } finally {
+      setLoading(false)
     }
   }
 
   const editProfile = async() => {
+    setLoading(true)
     try {
       const response = await userProfile()
       if (response?.data?.data) {
@@ -42,6 +48,8 @@ export default function Page() {
       }
     } catch (error) {
       toast.error('Unable to edit')
+    } finally {
+      setLoading(false)
     }
   }
 

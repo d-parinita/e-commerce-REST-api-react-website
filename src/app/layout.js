@@ -28,7 +28,7 @@ export default function RootLayout({ children }) {
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <LoaderProvider>
-          {/* <Loader/> */}
+          <Loader/>
           <Navbar/>
           <ToastContainer 
             position="top-right"
