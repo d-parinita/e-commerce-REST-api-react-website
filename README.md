@@ -1,36 +1,70 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+# E-Commerce Frontend Project
 
-First, run the development server:
+## Overview
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+This project is a modern dynamic e-commerce frontend application built using Next.js, Tailwind CSS, and Context API for global state management. It provides a seamless user experience with optimized performance, responsive design, and secure payment processing.
+
+## Technologies Used
+
+**Next.js** - React framework for the frontend.
+
+**Tailwind CSS** - Utility-first CSS framework for styling.
+
+**Razorpay** - Payment gateway integration for secure transactions.
+
+**AWS S3 Signed URL** - Secure file uploads using AWS S3 pre-signed URLs.
+
+**REST API** - Communicates with the backend for fetching and managing data.
+
+**Context API** - Handles global state management efficiently.
+
+## Features
+
+**User Authentication** - Secure login and signup functionality.
+
+**Product Catalog** - Displays products with filters.
+
+**Shopping Cart** - Allows users to add, remove, and manage items.
+
+**Secure Payments** - Integrates Razorpay for seamless checkout.
+
+**Order Management** - Users can view past orders.
+
+**Image Uploads** - Uses AWS S3 signed URLs for secure image storage.
+
+**Mobile Responsiveness** - Fully optimized for different screen sizes.
+
+## Prerequisites for Setting Up the Project
+
+### 1. Clone the Backend Repository
+
+```sh
+git clone https://github.com/babluroy/node.js-eCommerce-Backend.git
+cd node.js-eCommerce-Backend 
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Start the backend server by following the setup instructions from the backend repository.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+Ensure the backend is running successfully.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 3. Set Up the Frontend Environment Variables
 
-## Learn More
+In the frontend project, create a `.env.local` file and add the following environment variables:
 
-To learn more about Next.js, take a look at the following resources:
+```env
+NEXT_PUBLIC_API_URL=<YOUR_BACKEND_URL>
+NEXT_PUBLIC_RAZORPAY_TEST_KEY=<YOUR_RAZORPAY_TEST_KEY>
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Replace `<YOUR_BACKEND_URL>` and `<YOUR_RAZORPAY_TEST_KEY>` with the actual values.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 4. Install Dependencies and Start the Frontend
 
-## Deploy on Vercel
+```sh
+npm install
+npm run dev
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The application should now be running successfully.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
