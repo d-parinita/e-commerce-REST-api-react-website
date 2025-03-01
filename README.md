@@ -13,8 +13,6 @@ This project is a modern dynamic e-commerce frontend application built using Nex
 
 **Razorpay** - Payment gateway integration for secure transactions.
 
-**AWS S3 Signed URL** - Secure file uploads using AWS S3 pre-signed URLs.
-
 **REST API** - Communicates with the backend for fetching and managing data.
 
 **Context API** - Handles global state management efficiently.
@@ -30,8 +28,6 @@ This project is a modern dynamic e-commerce frontend application built using Nex
 **Secure Payments** - Integrates Razorpay for seamless checkout.
 
 **Order Management** - Users can view past orders.
-
-**Image Uploads** - Uses AWS S3 signed URLs for secure image storage.
 
 **Mobile Responsiveness** - Fully optimized for different screen sizes.
 
