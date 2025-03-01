@@ -167,7 +167,7 @@ export default function Page() {
   }, [])
 
   return (
-    <div className="min-h-screen text-white mx-12 px-8 py-10">
+    <div className="min-h-screen text-white mx-4 sm:mx-12 px-4 sm:px-8 py-10">
           
       {cartItems.length ? (<>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">

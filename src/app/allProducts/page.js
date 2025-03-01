@@ -74,15 +74,15 @@ export default function Page() {
   return (
     <>
       <div>
-        <div className="flex space-x-4 bg-gray-800 p-4 mx-36 mt-10">
-          <div className="bg-gray-700 text-sm text-white px-2 py-2 focus:ring-2 focus:ring-lime-500">
+        <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4 bg-gray-800 p-4 mx-4 sm:mx-10 lg:mx-36 mt-6 sm:mt-10">
+          <div className="bg-gray-700 text-sm text-white px-2 py-2 focus:ring-2 focus:ring-lime-500 flex justify-center sm:inline-block">
             <span className="flex cursor-pointer items-center space-x-2">
               <BiSortAlt2 className="w-5 h-5" />
               <span onClick={() => setFilters({...filters, sortBy: 'sortBy=amount'})}>Sort By Price</span>
             </span>
           </div>
           <select
-            className="bg-gray-700 text-white text-sm px-2 py-2 focus:ring-2 focus:ring-lime-500"
+            className="bg-gray-700 text-white text-sm px-2 py-2 focus:ring-2 focus:ring-lime-500 w-full sm:w-auto"
             onChange={(e) => {
               const selectedIndex = e.target.selectedIndex;
               const selectedPrice = FILTER_BY_PRICE[selectedIndex];
@@ -98,7 +98,7 @@ export default function Page() {
             ))}
           </select>
           <select 
-            className="bg-gray-700 text-white text-sm px-2 py-2 focus:ring-2 focus:ring-lime-500"
+            className="bg-gray-700 text-white text-sm px-2 py-2 focus:ring-2 focus:ring-lime-500 w-full sm:w-auto"
             onChange={(e) => {
               const selectedIndex = e.target.selectedIndex;
               const selectedSize = FILTER_BY_SIZE[selectedIndex];
@@ -114,15 +114,15 @@ export default function Page() {
             ))}
           </select>
           <button
-            className="border-2 border-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-md text-sm"
+            className="border-2 border-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-md text-sm w-full sm:w-auto"
             onClick={handleClearFilters}
           >
             Clear All Filters
           </button>
         </div>
 
-        <div className="mx-[10rem] py-6 my-10">
-          <div className="grid grid-cols-5 gap-6">
+        <div className="mx-4 sm:mx-[5rem] lg:mx-[10rem] py-4 sm:py-6 my-6 sm:my-10">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6">
             {products?.map((product, i) => (
               <Fragment key={product._id}>
                 <Link href={routes.PRODUCT + '/' + product._id}>

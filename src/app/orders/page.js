@@ -47,7 +47,7 @@ export default function Page() {
 
   return (
     <>
-    <div className="min-h-screen text-white mx-24 px-8 py-10">
+    <div className="min-h-screen text-white mx-4 sm:mx-24 px-4 sm:px-8 py-10">
       
       {orderData.length ? (<>
         <div className='space-y-8'>

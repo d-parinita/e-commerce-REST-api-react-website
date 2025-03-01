@@ -54,7 +54,7 @@ export default function Page({ params }) {
 
   return (
     <>
-    <div className=" min-h-screen text-white px-8 py-10">
+    <div className=" min-h-screen text-white px-2 sm:px-8  py-10">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mx-12">
 
         <div className="space-y-4">

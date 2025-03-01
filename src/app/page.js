@@ -51,8 +51,8 @@ export default function Home() {
     <>
       <HeroSec/>
       <div id="category" className="text-center mt-12 text-4xl font-bold">Shop by Category</div>
-      <div className="mx-[10rem] py-6 mt-10">
-        <div className="grid grid-cols-7 gap-6">
+      <div className="mx-4 sm:mx-[5rem] lg:mx-[10rem] py-4 sm:py-6 mt-6 sm:mt-10">
+        <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-7 gap-2 sm:gap-4 md:gap-5">
           {categories?.map((category, i) => (
             <Fragment key={category._id}>
               <Link href={routes.PRODUCTBYCATEGORY + '/' + category._id}>
@@ -67,8 +67,8 @@ export default function Home() {
       </div>
       <Banner/>
       <div className="text-center mt-12 text-4xl font-bold">Explore our Products</div>
-      <div className="mx-[10rem] py-6 my-10">
-        <div className="grid grid-cols-5 gap-6">
+      <div className="mx-4 sm:mx-[5rem] lg:mx-[10rem] py-4 sm:py-6 my-6 sm:my-10">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6">
           {products?.map((product, i) => (
             <Fragment key={product._id}>
               <Link href={routes.PRODUCT + '/' + product._id}>

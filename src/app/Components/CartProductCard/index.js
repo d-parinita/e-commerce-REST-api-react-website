@@ -9,7 +9,7 @@ export default function CartProductCard({img, title, summary, size, quantity, am
                 {isShowCancelBtn ? 
                     (<>
                     {orderStatus == ORDER_STATUS.PROCESSING || orderStatus == ORDER_STATUS.RECEIVED ? (
-                        <button onClick={cancelOrder} className="px-3 py-1 absolute top-8 right-5 text-sm font-medium text-white border-2 border-white rounded-md hover:bg-gray-700 transition">
+                        <button onClick={cancelOrder} className="absolute top-2 right-2 sm:top-6 sm:right-6 text-[10px] sm:text-sm px-1 py-0.5 sm:px-3 sm:py-1 font-medium text-white border-2 border-white rounded-md hover:bg-gray-700 transition">
                             Cancel Order
                         </button>
                     ) : '' }</>) : 
@@ -21,7 +21,7 @@ export default function CartProductCard({img, title, summary, size, quantity, am
                     className="w-32 h-41 object-cover"
                 />
                 <div className="ml-4 flex-grow space-y-2">
-                    <h3 className="text-xl font-semibold">{title}</h3>
+                    <h3 className="text-md sm:text-xl font-semibold">{title}</h3>
                     <p className="text-sm text-gray-400">{summary}</p>
                     <p className="text-sm text-gray-400">
                         Size: <span className="font-medium">{size}</span>

@@ -4,8 +4,8 @@ import { IoIosHeartEmpty } from "react-icons/io";
 export default function ProductCard({ title, summary, price, img }) {
   return (
     <>
-    <div className="bg-gray-800 shadow-lg w-[215px] h-[350px] hover:shadow-2xl">
-      <div className="w-full h-[240px] overflow-hidden mb-4">
+    <div className="bg-gray-800 shadow-lg w-[180px] h-[280px] sm:w-[215px] sm:h-[350px] hover:shadow-2xl">
+      <div className="w-full h-[180px] sm:h-[240px] overflow-hidden mb-4">
         <img
           src={img}
           alt="Product"
