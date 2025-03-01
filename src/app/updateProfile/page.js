@@ -72,7 +72,7 @@ export default function Page() {
               </label>
               <input
                 type="text"
-                value={updateData.firstname}
+                value={updateData?.firstname}
                 onChange={(e) => setUpdateData({...updateData, firstname: e.target.value})}
                 id="first-name"
                 required
@@ -100,7 +100,7 @@ export default function Page() {
             </label>
             <input
               type="tel"
-              value={updateData.phoneNumber}
+              value={updateData?.phoneNumber}
               onChange={(e) => setUpdateData({...updateData, phoneNumber: e.target.value})}
               id="phone"
               required
@@ -114,48 +114,48 @@ export default function Page() {
             <div className="grid grid-cols-2 gap-4 mt-2">
               <input
                 type="text"
-                value={updateData.address.city}
-                onChange={(e) => setUpdateData({...updateData, address: {...updateData.address, city: e.target.value}})}
+                value={updateData?.address?.city}
+                onChange={(e) => setUpdateData({...updateData, address: {...updateData?.address, city: e.target.value}})}
                 placeholder="City"
                 required
                 className="bg-gray-700 text-white rounded-md px-4 py-2 focus:ring-2 focus:ring-lime-400"
               />
               <input
                 type="text"
-                value={updateData.address.houseNumber}
-                onChange={(e) => setUpdateData({...updateData, address: {...updateData.address, houseNumber: e.target.value}})}
+                value={updateData?.address?.houseNumber}
+                onChange={(e) => setUpdateData({...updateData, address: {...updateData?.address, houseNumber: e.target.value}})}
                 placeholder="House Number"
                 required
                 className="bg-gray-700 text-white rounded-md px-4 py-2 focus:ring-2 focus:ring-lime-400"
               />
               <input
                 type="text"
-                value={updateData.address.state}
-                onChange={(e) => setUpdateData({...updateData, address: {...updateData.address, state: e.target.value}})}
+                value={updateData?.address?.state}
+                onChange={(e) => setUpdateData({...updateData, address: {...updateData?.address, state: e.target.value}})}
                 placeholder="State"
                 required
                 className="bg-gray-700 text-white rounded-md px-4 py-2 focus:ring-2 focus:ring-lime-400"
               />
               <input
                 type="text"
-                value={updateData.address.locality}
-                onChange={(e) => setUpdateData({...updateData, address: {...updateData.address, locality: e.target.value}})}
+                value={updateData?.address?.locality}
+                onChange={(e) => setUpdateData({...updateData, address: {...updateData?.address, locality: e.target.value}})}
                 placeholder="Locality"
                 required
                 className="bg-gray-700 text-white rounded-md px-4 py-2 focus:ring-2 focus:ring-lime-400"
               />
               <input
                 type="text"
-                value={updateData.address.pin}
-                onChange={(e) => setUpdateData({...updateData, address: {...updateData.address, pin: e.target.value}})}
+                value={updateData?.address?.pin}
+                onChange={(e) => setUpdateData({...updateData, address: {...updateData?.address, pin: e.target.value}})}
                 placeholder="Pincode"
                 required
                 className="bg-gray-700 text-white rounded-md px-4 py-2 focus:ring-2 focus:ring-lime-400"
               />
               <input
                 type="text"
-                value={updateData.address.lane}
-                onChange={(e) => setUpdateData({...updateData, address: {...updateData.address, lane: e.target.value}})}
+                value={updateData?.address?.lane}
+                onChange={(e) => setUpdateData({...updateData, address: {...updateData?.address, lane: e.target.value}})}
                 placeholder="Lane"
                 required
                 className="bg-gray-700 text-white rounded-md px-4 py-2 focus:ring-2 focus:ring-lime-400"
@@ -163,8 +163,8 @@ export default function Page() {
             </div>
             <input
               type="text"
-              value={updateData.address.address}
-              onChange={(e) => setUpdateData({...updateData, address: {...updateData.address, address: e.target.value}})}
+              value={updateData?.address?.address}
+              onChange={(e) => setUpdateData({...updateData, address: {...updateData?.address, address: e.target.value}})}
               placeholder="Address"
               required
               className="mt-4 w-full bg-gray-700 text-white rounded-md px-4 py-2 focus:ring-2 focus:ring-lime-400"

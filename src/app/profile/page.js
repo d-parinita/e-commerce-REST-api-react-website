@@ -59,27 +59,27 @@ export default function Page() {
             <div className="grid grid-cols-2 gap-6">
               <div>
                 <p className="text-gray-400 text-sm">City</p>
-                <p className="text-white font-semibold">{profileData?.address.city}</p>
+                <p className="text-white font-semibold">{profileData?.address?.city}</p>
               </div>
               <div>
                 <p className="text-gray-400 text-sm">House Number</p>
-                <p className="text-white font-semibold">{profileData?.address.houseNumber}</p>
+                <p className="text-white font-semibold">{profileData?.address?.houseNumber}</p>
               </div>
               <div>
                 <p className="text-gray-400 text-sm">State</p>
-                <p className="text-white font-semibold">{profileData?.address.state}</p>
+                <p className="text-white font-semibold">{profileData?.address?.state}</p>
               </div>
               <div>
                 <p className="text-gray-400 text-sm">Locality</p>
-                <p className="text-white font-semibold">{profileData?.address.locality}</p>
+                <p className="text-white font-semibold">{profileData?.address?.locality}</p>
               </div>
               <div>
                 <p className="text-gray-400 text-sm">Pincode</p>
-                <p className="text-white font-semibold">{profileData?.address.pin}</p>
+                <p className="text-white font-semibold">{profileData?.address?.pin}</p>
               </div>
               <div>
                 <p className="text-gray-400 text-sm">Address Lane</p>
-                <p className="text-white font-semibold">{profileData?.address.address}</p>
+                <p className="text-white font-semibold">{profileData?.address?.address}</p>
               </div>
             </div>
           </div>
