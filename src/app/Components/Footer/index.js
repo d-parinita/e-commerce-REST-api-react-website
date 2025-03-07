@@ -1,3 +1,5 @@
+import { routes } from '@/app/utils/routes';
+import Link from 'next/link';
 import React from 'react';
 import { FaSquareFacebook, FaSquareXTwitter, FaSquareInstagram } from "react-icons/fa6";
 
@@ -16,10 +18,10 @@ export default function Footer() {
           <div className="flex-1">
             <h2 className="text-xl font-bold mb-3">Quick Links</h2>
             <ul className="space-y-2">
-              <li><a href="#" className="hover:text-gray-300">Home</a></li>
-              <li><a href="#" className="hover:text-gray-300">Shop</a></li>
-              <li><a href="#" className="hover:text-gray-300">Contact</a></li>
-              <li><a href="#" className="hover:text-gray-300">FAQs</a></li>
+              <li><Link href={routes.HOME} className="hover:text-gray-300">Home</Link></li>
+              <li><Link href={routes.ALLPRODUCTS} className="hover:text-gray-300">Shop</Link></li>
+              <li><Link href="#" className="hover:text-gray-300">Contact</Link></li>
+              <li><Link href="#" className="hover:text-gray-300">FAQs</Link></li>
             </ul>
           </div>
 
@@ -36,18 +38,18 @@ export default function Footer() {
         <div className="border-t border-gray-700 mb-4"></div>
 
         <div className="flex justify-between items-center">
-          <p className="text-gray-500">© 2025 Your Company. All rights reserved.</p>
+          <p className="text-gray-500">&copy; 2025 Your Company. All rights reserved.</p>
 
           <div className="flex space-x-4">
-            <a href="#" className="hover:text-gray-300">
+            <Link href="#" className="hover:text-gray-300">
               <FaSquareFacebook className="w-5 h-5" />
-            </a>
-            <a href="#" className="hover:text-gray-300">
+            </Link>
+            <Link href="#" className="hover:text-gray-300">
               <FaSquareXTwitter className="w-5 h-5" />
-            </a>
-            <a href="#" className="hover:text-gray-300">
+            </Link>
+            <Link href="#" className="hover:text-gray-300">
               <FaSquareInstagram className="w-5 h-5" />
-            </a>
+            </Link>
           </div>
         </div>
       </div>
