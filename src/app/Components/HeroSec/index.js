@@ -1,7 +1,4 @@
 import React from 'react'
-import { IoIosReturnLeft } from "react-icons/io";
-import { HiOutlineBanknotes } from "react-icons/hi2";
-import { TbTruckDelivery } from "react-icons/tb";
 import Link from 'next/link';
 import { routes } from '@/app/utils/routes';
 
